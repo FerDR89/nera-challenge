@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Define la versión de JavaScript a la que se compilará TypeScript
+    "module": "ESNext", // Usa módulos ECMAScript
+    "moduleResolution": "node", // Resuelve módulos al estilo Node.js
+    "esModuleInterop": true, // Habilita la interoperabilidad entre módulos CommonJS y ESM
+    "forceConsistentCasingInFileNames": true, // Fuerza el uso consistente de mayúsculas y minúsculas en los nombres de archivo
+    "strict": true, // Habilita todas las verificaciones estrictas
+    "skipLibCheck": true, // Omite la verificación de tipos en los archivos de declaración
+    "resolveJsonModule": true, // Permite la importación de módulos JSON
+    "outDir": "./dist", // Carpeta de salida para los archivos compilados
+    "rootDir": "./src", // Carpeta raíz de los archivos de entrada
+    "declaration": true, // Genera archivos de declaración (.d.ts)
+    "declarationMap": true, // Genera mapas de los archivos de declaración
+    "sourceMap": true // Genera mapas de los archivos fuente (.js.map)
+  },
+
+  "exclude": ["node_modules"] // Excluye la carpeta node_modules
+}
