@@ -13,3 +13,18 @@ export const HomeFormSchema = yup
     balance: yup.number().positive().moreThan(0).required(),
   })
   .required();
+
+export const DashBoardFormSchema = yup
+  .object({
+    cashInAmount: yup
+      .number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .min(1)
+      .moreThan(0),
+    cashOutAmount: yup
+      .number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .min(1)
+      .moreThan(0),
+  })
+  .required();

@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 50px;
+}
+
+.balance_container {
+  align-self: flex-start;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  margin-top: 20px;
+}
+
+.button_container {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  max-width: 400px;
+}
+
+.button {
+  height: 40px;
+  width: 150px;
+}
+
+.button_text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-color-secondary);
+}
