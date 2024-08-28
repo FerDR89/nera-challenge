@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-interface IUserSlice {
-  name: string;
-  accountNumber: number;
+import { IUser } from "@/API/fetchers/fetchers";
+interface IUserSlice extends IUser {
   accountId: string;
-  balance: number;
 }
 
 const initialState: IUserSlice = {
@@ -20,6 +18,7 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUserSlice>) => {
       return {
+        ...state,
         ...action.payload,
       };
     },
