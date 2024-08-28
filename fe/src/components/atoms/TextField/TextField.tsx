@@ -35,7 +35,7 @@ const TextField = ({
         {...register(name, { required })}
         className={styles.input}
       />
-      {error && <p>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
     </fieldset>
   );
 };

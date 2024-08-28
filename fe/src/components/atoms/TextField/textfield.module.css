@@ -10,7 +10,7 @@
 }
 
 .label {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .input {
@@ -19,4 +19,9 @@
   padding: 10px;
   height: 40px;
   border: 2px solid black;
+}
+
+.error {
+  font-size: 10px;
+  color: red;
 }
