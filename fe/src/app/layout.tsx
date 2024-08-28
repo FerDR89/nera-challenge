@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import StoreProvider from "@/lib/store/StoreProvider";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
@@ -18,13 +19,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className={styles.header}>
-          <h1 className={styles.header_title}>NIRA CHALLENGE</h1>
-        </header>
-        <main className={styles.main}>{children}</main>
-        <footer className={styles.footer}>
-          <h4 className={styles.footer_title}>Hecho por Fernando de Row</h4>
-        </footer>
+        <StoreProvider>
+          <header className={styles.header}>
+            <h1 className={styles.header_title}>NIRA CHALLENGE</h1>
+          </header>
+          <main className={styles.main}>{children}</main>
+          <footer className={styles.footer}>
+            <h4 className={styles.footer_title}>Hecho por Fernando de Row</h4>
+          </footer>
+        </StoreProvider>
       </body>
     </html>
   );
