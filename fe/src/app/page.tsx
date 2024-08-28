@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,9 +6,12 @@ import TextField from "@/components/atoms/TextField/TextField";
 import { HomeFormSchema } from "@/schema/schema";
 import styles from "./page.module.css";
 import Button from "@/components/atoms/Button/Button";
+import { useAppDispatch } from "@/lib/hooks/hooks";
+import { setUser } from "@/lib/reducers/userSlice";
 
 export default function Home() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   interface IHomeForm {
     name: string;
@@ -20,7 +22,6 @@ export default function Home() {
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm<IHomeForm>({
     mode: "onSubmit",
@@ -28,13 +29,18 @@ export default function Home() {
   });
 
   const onSubmit: SubmitHandler<IHomeForm> = (data) => {
-    //TODO: RESET FORM - REDUX - API
-    console.log(data);
-    // router.push("dashboard");
+    // TODO: Pegarle a la API y con el userAccount que me devuelve guardarlo en el store
+    dispatch(
+      setUser({
+        ...data,
+        accountId: "lalaa",
+      })
+    );
+    router.push("dashboard");
   };
 
   return (
-    <main className={styles.main}>
+    <section className={styles.main}>
       <h1>Bienvenido</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -70,6 +76,6 @@ export default function Home() {
           </Button>
         </div>
       </form>
-    </main>
+    </section>
   );
 }
