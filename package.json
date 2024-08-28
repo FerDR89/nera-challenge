@@ -1,8 +1,8 @@
 {
-  "name": "nira-challenge",
+  "name": "nera-challenge",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:FerDR89/nira-challenge.git",
+  "repository": "git@github.com:FerDR89/nera-challenge.git",
   "author": "Fernando de Row <ferdr89dev@gmail.com>",
   "license": "MIT",
   "dependencies": {
