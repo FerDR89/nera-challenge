@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@/components/atoms/TextField/TextField";
 import { HomeFormSchema } from "@/schema/schema";
 import styles from "./page.module.css";
+import Button from "@/components/atoms/Button/Button";
 
 export default function Home() {
   const router = useRouter();
@@ -29,13 +30,13 @@ export default function Home() {
   const onSubmit: SubmitHandler<IHomeForm> = (data) => {
     //TODO: RESET FORM - REDUX - API
     console.log(data);
-    router.push("dashboard");
+    // router.push("dashboard");
   };
 
   return (
     <main className={styles.main}>
-      <h1>NERA CHALLENGE</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h1>Bienvenido</h1>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <TextField
           type="text"
           name="name"
@@ -63,7 +64,11 @@ export default function Home() {
           required
           error={errors.balance?.message}
         />
-        <button type="submit">Ingresar</button>
+        <div className={styles.button_container}>
+          <Button type="submit">
+            <p className={styles.button_text}>Ingresar</p>
+          </Button>
+        </div>
       </form>
     </main>
   );

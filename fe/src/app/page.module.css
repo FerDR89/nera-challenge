@@ -4,7 +4,22 @@
   align-items: center;
   justify-content: center;
   padding: 6rem;
-  min-height: 100vh;
-  width: var(--max-width);
-  background-color: var(--background);
+  height: inherit;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  margin-top: 20px;
+}
+
+.button_container {
+  height: 40px;
+}
+
+.button_text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-color-secondary);
 }
