@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 import { nanoid } from "nanoid";
@@ -24,6 +25,11 @@ interface Data {
 }
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3031",
+  })
+);
 const port = 3000;
 
 // Configuración de lowdb
