@@ -22,13 +22,18 @@ const TextField = ({
   error,
 }: TextFieldProps) => {
   return (
-    <fieldset>
-      {label && <label htmlFor={name}>{label}</label>}
+    <fieldset className={styles.container}>
+      {label && (
+        <label htmlFor={name} className={styles.label}>
+          {label}
+        </label>
+      )}
       <input
         placeholder={placeholder}
         type={type}
         id={name}
         {...register(name, { required })}
+        className={styles.input}
       />
       {error && <p>{error}</p>}
     </fieldset>
