@@ -10,6 +10,10 @@
   align-self: flex-start;
 }
 
+.text_balance_error {
+  color: red;
+}
+
 .form {
   display: flex;
   flex-direction: column;
