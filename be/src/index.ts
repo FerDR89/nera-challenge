@@ -58,7 +58,14 @@ app.post("/accounts", async (req, res) => {
     (a) => a.accountNumber === accountNumber
   );
 
+  /*Si la cuenta ya esta creada y se vuelve a inciar el flujo con el mismo accountId. Busca si existe esa cuenta y actualiza el saldo en base al nuevo saldo ingresado */
+
   if (findedAccount) {
+    const dbIndex = db.data.accounts.findIndex(
+      (el) => el.accountNumber === findedAccount.accountNumber
+    );
+    db.data.accounts[dbIndex].balance += parsedBalance;
+    await db.write();
     return res.status(200).json({ id: findedAccount.accountId });
   }
 
