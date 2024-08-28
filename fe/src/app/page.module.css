@@ -5,6 +5,10 @@
   justify-content: center;
 }
 
+.title {
+  font-size: 48px;
+}
+
 .form {
   display: flex;
   flex-direction: column;

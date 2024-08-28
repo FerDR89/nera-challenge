@@ -1,47 +1,56 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@/components/atoms/TextField/TextField";
-import { HomeFormSchema } from "@/schema/schema";
+import { userSchema } from "@/schema/schema";
 import styles from "./page.module.css";
 import Button from "@/components/atoms/Button/Button";
-import { useAppDispatch } from "@/lib/hooks/hooks";
-import { setUser } from "@/lib/reducers/userSlice";
+import { useAppDispatch } from "@/hooks/hooks";
+import { setUser } from "@/reducers/userSlice";
+import { createAccount, IUser } from "@/API/fetchers/fetchers";
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  interface IHomeForm {
-    name: string;
-    accountNumber: number;
-    balance: number;
-  }
+  const mutation = useMutation({
+    mutationFn: createAccount,
+  });
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<IHomeForm>({
+    reset,
+  } = useForm<IUser>({
     mode: "onSubmit",
-    resolver: yupResolver(HomeFormSchema),
+    resolver: yupResolver(userSchema),
   });
 
-  const onSubmit: SubmitHandler<IHomeForm> = (data) => {
-    // TODO: Pegarle a la API y con el userAccount que me devuelve guardarlo en el store
-    dispatch(
-      setUser({
-        ...data,
-        accountId: "lalaa",
-      })
-    );
-    router.push("dashboard");
+  const onSubmit: SubmitHandler<IUser> = async (formData) => {
+    try {
+      const response = await mutation.mutateAsync(formData);
+      if (response.id) {
+        dispatch(
+          setUser({
+            ...formData,
+            accountId: response.id,
+          })
+        );
+        router.push("dashboard");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      reset();
+    }
   };
 
   return (
     <section className={styles.main}>
-      <h1>Bienvenido</h1>
+      <h1 className={styles.title}>Bienvenido</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <TextField
           type="text"
