@@ -5,7 +5,9 @@
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
   --foreground: rgb(6, 80, 36);
   --background: rgb(221, 242, 222);
-  --font-color: #000;
+  --font-color-primary: #000;
+  --font-color-secondary: #fff;
+  --button-background-primary: rgb(13, 171, 78);
 }
 
 * {
