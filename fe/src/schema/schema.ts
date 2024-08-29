@@ -17,6 +17,8 @@ export const userSchema = yup
       .moreThan(0, validationFeedBack.moreThan),
     balance: yup
       .number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .required(validationFeedBack.required)
       .positive()
       .moreThan(0, validationFeedBack.moreThan)
       .required(validationFeedBack.required),
