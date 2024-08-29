@@ -1,3 +1,6 @@
+import { alert } from "@/components/atoms/alert/alert";
+import { alertFeedBack } from "@/constants/constants";
+
 const BASE_URL = "http://localhost:3000";
 
 export interface IUser {
@@ -24,9 +27,16 @@ export async function getBalance(accountId: string) {
       BASE_URL + `/accounts/${accountId}/balance`,
       options
     );
+    if (!response.ok) {
+      return { error: "Service Unavailable" };
+    }
+
     return await response.json();
   } catch (error) {
-    console.error(error);
+    alert({
+      title: alertFeedBack.generic_error.title,
+      icon: alertFeedBack.generic_error.icon,
+    });
   }
 }
 
@@ -47,7 +57,10 @@ export async function createAccount({ accountNumber, balance, name }: IUser) {
     const response = await fetch(BASE_URL + "/accounts", options);
     return await response.json();
   } catch (error) {
-    console.error(error);
+    alert({
+      title: alertFeedBack.generic_error.title,
+      icon: alertFeedBack.generic_error.icon,
+    });
   }
 }
 
@@ -72,6 +85,9 @@ export async function createTransaction({
     const response = await fetch(BASE_URL + "/transactions", options);
     return await response.json();
   } catch (error) {
-    console.error(error);
+    alert({
+      title: alertFeedBack.generic_error.title,
+      icon: alertFeedBack.generic_error.icon,
+    });
   }
 }
