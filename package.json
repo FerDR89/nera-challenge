@@ -5,11 +5,12 @@
   "repository": "git@github.com:FerDR89/nera-challenge.git",
   "author": "Fernando de Row <ferdr89dev@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "concurrently": "^8.2.2"
-  },
+  "dependencies": {},
   "scripts": {
-    "dev": "concurrently -n 'FE,BE' \"pnpm --prefix fe dev\" \"pnpm --prefix be dev\"",
-    "start": "concurrently -n 'FE,BE' -c 'blue,green' \"pnpm --prefix fe start\" \"pnpm --prefix be start\""
+    "install": "concurrently -n 'FE-Install,BE-Install' \"npm --prefix fe install\" \"npm --prefix be install\"",
+    "dev": "concurrently -n 'FE,BE' \"npm run --prefix fe dev\" \"npm run --prefix be dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
