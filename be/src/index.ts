@@ -59,7 +59,6 @@ app.post("/accounts", async (req, res) => {
   );
 
   /*Si la cuenta ya esta creada y se vuelve a inciar el flujo con el mismo accountId. Busca si existe esa cuenta y actualiza el saldo en base al nuevo saldo ingresado */
-
   if (findedAccount) {
     const dbIndex = db.data.accounts.findIndex(
       (el) => el.accountNumber === findedAccount.accountNumber
@@ -88,9 +87,8 @@ app.get("/accounts/:id/balance", async (req, res) => {
   const account = db.data.accounts.find((acc) => acc.accountId === accountId);
 
   if (!account) {
-    return res.status(404).json({ error: "Account not found" });
+    return res.status(404).json({ error: "Account not found", errorNumber: 1 });
   }
-
   res.json({ balance: account.balance });
 });
 
@@ -101,18 +99,22 @@ app.post("/transactions", async (req, res) => {
   const account = db.data.accounts.find((acc) => acc.accountId === accountId);
 
   if (!account) {
-    return res.status(404).json({ error: "Account not found" });
+    return res.status(404).json({ error: "Account not found", errorNumber: 1 });
   }
 
   if (type === "cash_in") {
     account.balance += parsedAmount;
   } else if (type === "cash_out") {
     if (account.balance < amount) {
-      return res.status(400).json({ error: "Insufficient funds" });
+      return res
+        .status(400)
+        .json({ error: "Insufficient funds", errorNumber: 2 });
     }
     account.balance -= parsedAmount;
   } else {
-    return res.status(400).json({ error: "Invalid transaction type" });
+    return res
+      .status(400)
+      .json({ error: "Invalid transaction type", errorNumber: 3 });
   }
 
   const transaction: Transaction = {
