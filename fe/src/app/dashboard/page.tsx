@@ -14,6 +14,8 @@ import {
   getBalance,
   ITransaction,
 } from "@/API/fetchers/fetchers";
+import { alert } from "@/components/atoms/alert/alert";
+import { alertFeedBack } from "@/constants/constants";
 
 export default function DashBoard() {
   const { accountId } = useAppSelector(selectUser);
@@ -26,9 +28,14 @@ export default function DashBoard() {
     if (!accountId) return;
     try {
       const response = await getBalance(accountId);
-      if (response) {
-        setBalance(response.balance);
+      if (response?.error) {
+        alert({
+          title: alertFeedBack.generic_error.title,
+          icon: alertFeedBack.generic_error.icon,
+        });
+        return;
       }
+      setBalance(response.balance);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +43,7 @@ export default function DashBoard() {
 
   useEffect(() => {
     fetchBalance(accountId);
-  }, [accountId, fetchBalance, mutation.isSuccess]);
+  }, [accountId, fetchBalance, mutation.data?.message]);
 
   interface ICashIn {
     cash_in: number;
@@ -65,9 +72,19 @@ export default function DashBoard() {
 
     try {
       const response = await mutation.mutateAsync(transaction);
-      console.log(response);
+      if (response.errorNumber === 1) {
+        alert({
+          title: alertFeedBack.account_not_found.title,
+          icon: alertFeedBack.account_not_found.icon,
+        });
+        return;
+      }
+      alert({
+        title: alertFeedBack.transaction.title,
+        icon: alertFeedBack.transaction.icon,
+      });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     } finally {
       resetCashIn();
     }
@@ -91,9 +108,33 @@ export default function DashBoard() {
     };
     try {
       const response = await mutation.mutateAsync(transaction);
-      console.log(response);
+      if (response.errorNumber === 1) {
+        alert({
+          title: alertFeedBack.account_not_found.title,
+          icon: alertFeedBack.account_not_found.icon,
+        });
+        return;
+      }
+      if (response.errorNumber === 2) {
+        alert({
+          title: alertFeedBack.insufficient_funds.title,
+          icon: alertFeedBack.insufficient_funds.icon,
+        });
+        return;
+      }
+      if (response.errorNumber === 3) {
+        alert({
+          title: alertFeedBack.invalid_transaction.title,
+          icon: alertFeedBack.invalid_transaction.icon,
+        });
+        return;
+      }
+      alert({
+        title: alertFeedBack.transaction.title,
+        icon: alertFeedBack.transaction.icon,
+      });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     } finally {
       resetCashOut();
     }
