@@ -2,14 +2,16 @@
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { createAccount, IUser } from "@/API/fetchers/fetchers";
 import { yupResolver } from "@hookform/resolvers/yup";
-import TextField from "@/components/atoms/TextField/TextField";
-import { userSchema } from "@/schema/schema";
-import styles from "./page.module.css";
-import Button from "@/components/atoms/Button/Button";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setUser } from "@/reducers/userSlice";
-import { createAccount, IUser } from "@/API/fetchers/fetchers";
+import { userSchema } from "@/schema/schema";
+import Button from "@/components/atoms/Button/Button";
+import TextField from "@/components/atoms/TextField/TextField";
+import { alert } from "@/components/atoms/alert/alert";
+import { alertFeedBack } from "@/constants/constants";
+import styles from "./page.module.css";
 
 export default function Home() {
   const router = useRouter();
@@ -32,7 +34,17 @@ export default function Home() {
   const onSubmit: SubmitHandler<IUser> = async (formData) => {
     try {
       const response = await mutation.mutateAsync(formData);
+      if (response?.errorNumber === 1) {
+        alert({
+          title: alertFeedBack.account_not_found.title,
+          icon: alertFeedBack.account_not_found.icon,
+        });
+      }
       if (response.id) {
+        alert({
+          title: alertFeedBack.create_account_success.title,
+          icon: alertFeedBack.create_account_success.icon,
+        });
         dispatch(
           setUser({
             ...formData,
@@ -42,7 +54,7 @@ export default function Home() {
         router.push("dashboard");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     } finally {
       reset();
     }
