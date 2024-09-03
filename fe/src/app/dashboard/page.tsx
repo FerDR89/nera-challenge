@@ -1,21 +1,16 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { selectUser } from "@/reducers/userSlice";
-import { useAppSelector } from "@/hooks/hooks";
+import { createTransaction, getBalance, ITransaction } from "@fetchers";
+import { useAppSelector } from "@hooks";
+import { selectUser } from "@reducers";
 import { cashInSchema, cashOutSchema } from "@/schema/schema";
-import Button from "@/components/atoms/Button/Button";
-import TextField from "@/components/atoms/TextField/TextField";
+import { Button, TextField } from "@atoms";
+import { alert } from "@toast";
+import { alertFeedBack } from "@constants";
 import styles from "./dashboard.module.css";
-import {
-  createTransaction,
-  getBalance,
-  ITransaction,
-} from "@/API/fetchers/fetchers";
-import { alert } from "@/components/atoms/alert/alert";
-import { alertFeedBack } from "@/constants/constants";
 
 export default function DashBoard() {
   const { accountId } = useAppSelector(selectUser);

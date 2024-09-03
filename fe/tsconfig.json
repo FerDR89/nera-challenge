@@ -18,7 +18,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@*": ["./src/*"],
+      "@atoms": ["./src/components/atoms"],
+      "@api": ["./src/api"],
+      "@fetchers": ["./src/api/fetchers"],
+      "@hooks": ["./src/lib/hooks"],
+      "@reducers": ["./src/lib/reducers"],
+      "@constants": ["./src/constants"],
+      "@toast": ["./src/lib/toast"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StoreProvider from "@/store/StoreProvider";
-import ReactQueryProvider from "@/API/ReactQueryProvider";
+import ReactQueryProvider from "@api/ReactQueryProvider";
 import "./globals.css";
 import styles from "./layout.module.css";
 

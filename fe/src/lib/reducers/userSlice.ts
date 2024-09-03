@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store/store";
-import { IUser } from "@/API/fetchers/fetchers";
+import { RootState } from "../../store/store";
+import { IUser } from "@fetchers";
 interface IUserSlice extends IUser {
   accountId: string;
 }
@@ -27,4 +27,4 @@ export const userSlice = createSlice({
 
 export const { setUser } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
-export default userSlice.reducer;
+export const userReducer = userSlice.reducer;

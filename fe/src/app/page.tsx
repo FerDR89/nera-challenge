@@ -1,16 +1,15 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createAccount, IUser } from "@/API/fetchers/fetchers";
+import { useMutation } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch } from "@/hooks/hooks";
-import { setUser } from "@/reducers/userSlice";
+import { createAccount, IUser } from "@fetchers";
+import { useAppDispatch } from "@hooks";
+import { setUser } from "@reducers";
 import { userSchema } from "@/schema/schema";
-import Button from "@/components/atoms/Button/Button";
-import TextField from "@/components/atoms/TextField/TextField";
-import { alert } from "@/components/atoms/alert/alert";
-import { alertFeedBack } from "@/constants/constants";
+import { Button, TextField } from "@atoms";
+import { alert } from "@toast";
+import { alertFeedBack } from "@constants";
 import styles from "./page.module.css";
 
 export default function Home() {

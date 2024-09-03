@@ -1,5 +1,5 @@
-import { alert } from "@/components/atoms/alert/alert";
-import { alertFeedBack } from "@/constants/constants";
+import { alert } from "@toast";
+import { alertFeedBack } from "@constants";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -14,7 +14,7 @@ export interface ITransaction {
   amount: number;
 }
 
-export async function getBalance(accountId: string) {
+async function getBalance(accountId: string) {
   const options = {
     method: "GET",
     headers: {
@@ -40,7 +40,7 @@ export async function getBalance(accountId: string) {
   }
 }
 
-export async function createAccount({ accountNumber, balance, name }: IUser) {
+async function createAccount({ accountNumber, balance, name }: IUser) {
   const options = {
     method: "POST",
     headers: {
@@ -64,11 +64,7 @@ export async function createAccount({ accountNumber, balance, name }: IUser) {
   }
 }
 
-export async function createTransaction({
-  accountId,
-  amount,
-  type,
-}: ITransaction) {
+async function createTransaction({ accountId, amount, type }: ITransaction) {
   const options = {
     method: "POST",
     headers: {
@@ -91,3 +87,5 @@ export async function createTransaction({
     });
   }
 }
+
+export { getBalance, createAccount, createTransaction };
