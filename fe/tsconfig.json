@@ -20,6 +20,7 @@
     "paths": {
       "@*": ["./src/*"],
       "@atoms": ["./src/components/atoms"],
+      "@molecules": ["./src/components/molecules"],
       "@api": ["./src/api"],
       "@fetchers": ["./src/api/fetchers"],
       "@hooks": ["./src/lib/hooks"],

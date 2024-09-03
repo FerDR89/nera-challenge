@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  margin-top: 20px;
+}
+
+.button_text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-color-secondary);
+}
