@@ -7,9 +7,9 @@ import { createAccount, IUser } from "@fetchers";
 import { useAppDispatch } from "@hooks";
 import { setUser } from "@reducers";
 import { userSchema } from "@/schema/schema";
-import { Button, TextField } from "@atoms";
+import { Form } from "@molecules";
 import { alert } from "@toast";
-import { alertFeedBack } from "@constants";
+import { alertFeedBack, homeForm } from "@constants";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -62,40 +62,14 @@ export default function Home() {
   return (
     <section className={styles.main}>
       <h1 className={styles.title}>Bienvenido</h1>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          type="text"
-          name="name"
-          placeholder="Ingresá nombre"
-          label="Nombre"
-          register={register}
-          required
-          error={errors.name?.message}
-        />
-        <TextField
-          type="number"
-          name="accountNumber"
-          placeholder="Ingresá tu número de cuenta"
-          label="Número de cuenta"
-          register={register}
-          required
-          error={errors.accountNumber?.message}
-        />
-        <TextField
-          type="number"
-          name="balance"
-          placeholder="Ingresá tu saldo inicial"
-          label="Saldo inicial"
-          register={register}
-          required
-          error={errors.balance?.message}
-        />
-        <div className={styles.button_container}>
-          <Button type="submit">
-            <p className={styles.button_text}>Ingresar</p>
-          </Button>
-        </div>
-      </form>
+      <Form
+        buttonText="Ingresar"
+        formOptions={homeForm}
+        error={errors}
+        onSubmit={handleSubmit(onSubmit)}
+        register={register}
+        required
+      />
     </section>
   );
 }

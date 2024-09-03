@@ -1,3 +1,4 @@
+import { TFromProps } from "@components/molecules/form/Form";
 import { SweetAlertIcon } from "sweetalert2";
 
 export const validationFeedBack = {
@@ -44,3 +45,27 @@ export const alertFeedBack: IAlertFeedback = {
   insufficient_funds: { title: "Fondos insuficientes", icon: "error" },
   invalid_transaction: { title: "Transacción inválida", icon: "error" },
 };
+
+export const homeForm: TFromProps[] = [
+  {
+    label: "Nombre",
+    type: "input",
+    inputType: "text",
+    name: "name",
+    placeholder: "Ingresá tu nombre",
+  },
+  {
+    label: "Número de cuenta",
+    type: "input",
+    inputType: "number",
+    name: "accountNumber",
+    placeholder: "Ingresá tu número de cuenta",
+  },
+  {
+    label: "Saldo inicial",
+    type: "input",
+    inputType: "number",
+    name: "balance",
+    placeholder: "Ingresá tu saldo inicial",
+  },
+];
