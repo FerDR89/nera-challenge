@@ -6,7 +6,7 @@ interface ITextField {
   label?: string;
   type: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   register: UseFormRegister<any>;
   required: boolean;
   error?: string;
