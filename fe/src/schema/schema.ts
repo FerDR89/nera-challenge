@@ -5,14 +5,18 @@ export const userSchema = yup
   .object({
     name: yup
       .string()
+      .required(validationFeedBack.required)
+      .matches(/^[a-zA-Z\s]+$/, validationFeedBack.validName)
       .min(2, validationFeedBack.minCharacters)
       .max(20, validationFeedBack.maxCharacters)
-      .required(validationFeedBack.required),
+      .trim(),
+
     accountNumber: yup
       .number()
       .transform((value) => (isNaN(value) ? undefined : value))
       .required(validationFeedBack.required)
       .min(1, validationFeedBack.minNumber)
+      .max(20, validationFeedBack.maxCharacters)
       .positive()
       .moreThan(0, validationFeedBack.moreThan),
     balance: yup

@@ -2,6 +2,7 @@ import { SweetAlertIcon } from "sweetalert2";
 
 export const validationFeedBack = {
   required: "Esta campo es requerido",
+  validName: "Esta campo no acepta caracteres especiales",
   moreThan: "El valor ingresado deber ser mayor a cero  ",
   minNumber: "Debes ingresar al menos un valor mayor a cero",
   minCharacters: "Debes ingresar al menos dos caracteres",
