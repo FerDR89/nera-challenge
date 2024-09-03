@@ -1,9 +1,9 @@
-import React, { Ref } from "react";
+import React from "react";
 import { UseFormRegister } from "react-hook-form";
 import styles from "./textfield.module.css";
 
-interface TextFieldProps {
-  label: string;
+interface ITextField {
+  label?: string;
   type: string;
   name: string;
   placeholder: string;
@@ -20,7 +20,7 @@ const TextField = ({
   register,
   required,
   error,
-}: TextFieldProps) => {
+}: ITextField) => {
   return (
     <fieldset className={styles.container}>
       {label && (
@@ -35,7 +35,11 @@ const TextField = ({
         {...register(name, { required })}
         className={styles.input}
       />
-      {error && <p className={styles.error}>{error}</p>}
+      {
+        <div className={styles.error_container}>
+          {error && <p className={styles.error}>{error}</p>}
+        </div>
+      }
     </fieldset>
   );
 };
