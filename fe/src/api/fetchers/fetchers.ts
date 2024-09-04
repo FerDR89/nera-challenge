@@ -1,7 +1,6 @@
 import { alert } from "@toast";
 import { alertFeedBack } from "@constants";
-
-const BASE_URL = "http://localhost:3000";
+import { requestFormatter } from "@lib/utils";
 
 export interface IUser {
   name: string;
@@ -15,22 +14,16 @@ export interface ITransaction {
 }
 
 async function getBalance(accountId: string) {
-  const options = {
+  const [url, options] = requestFormatter({
     method: "GET",
-    headers: {
-      accept: "application/json",
-    },
-  };
+    path: `/accounts/${accountId}/balance`,
+  });
 
   try {
-    const response = await fetch(
-      BASE_URL + `/accounts/${accountId}/balance`,
-      options
-    );
+    const response = await fetch(url, options);
     if (!response.ok) {
       return { error: "Service Unavailable" };
     }
-
     return await response.json();
   } catch (error) {
     alert({
@@ -41,20 +34,18 @@ async function getBalance(accountId: string) {
 }
 
 async function createAccount({ accountNumber, balance, name }: IUser) {
-  const options = {
+  const [url, options] = requestFormatter({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+    path: "/accounts",
+    body: {
       name,
       accountNumber,
       balance,
-    }),
-  };
+    },
+  });
 
   try {
-    const response = await fetch(BASE_URL + "/accounts", options);
+    const response = await fetch(url, options);
     return await response.json();
   } catch (error) {
     alert({
@@ -65,20 +56,18 @@ async function createAccount({ accountNumber, balance, name }: IUser) {
 }
 
 async function createTransaction({ accountId, amount, type }: ITransaction) {
-  const options = {
+  const [url, options] = requestFormatter({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+    path: "/transactions",
+    body: {
       accountId,
       amount,
       type,
-    }),
-  };
+    },
+  });
 
   try {
-    const response = await fetch(BASE_URL + "/transactions", options);
+    const response = await fetch(url, options);
     return await response.json();
   } catch (error) {
     alert({

@@ -27,7 +27,8 @@
       "@reducers": ["./src/lib/reducers"],
       "@constants": ["./src/constants"],
       "@toast": ["./src/lib/toast"],
-      "@schema": ["./src/schema"]
+      "@schema": ["./src/schema"],
+      "@utils": ["./src/lin/utils"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
