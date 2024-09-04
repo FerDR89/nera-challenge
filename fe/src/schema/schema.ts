@@ -29,19 +29,16 @@ export const userSchema = yup
   })
   .required();
 
-export const cashInSchema = yup.object({
-  cash_in: yup
+export const cashInOutSchema = yup.object({
+  amount: yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .required(validationFeedBack.required)
     .min(1, validationFeedBack.minNumber)
-    .moreThan(0),
-});
-export const cashOutSchema = yup.object({
-  cash_out: yup
-    .number()
-    .transform((value) => (isNaN(value) ? undefined : value))
+    .positive()
+    .moreThan(0, validationFeedBack.moreThan),
+  type: yup
+    .string()
     .required(validationFeedBack.required)
-    .min(1, validationFeedBack.minNumber)
-    .moreThan(0),
+    .matches(/^(cash_in|cash_out)$/),
 });
