@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createAccount, IUser } from "@fetchers";
 import { useAppDispatch } from "@hooks";
 import { setUser } from "@reducers";
-import { userSchema } from "@/schema/schema";
+import { userSchema } from "@schema";
 import { Form } from "@molecules";
 import { alert } from "@toast";
 import { alertFeedBack, homeForm } from "@constants";

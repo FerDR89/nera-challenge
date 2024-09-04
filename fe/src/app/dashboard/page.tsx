@@ -6,11 +6,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createTransaction, getBalance, ITransaction } from "@fetchers";
 import { useAppSelector } from "@hooks";
 import { selectUser } from "@reducers";
-import { cashInSchema, cashOutSchema } from "@/schema/schema";
-import { Button, TextField } from "@atoms";
+import { cashInOutSchema } from "@schema";
 import { alert } from "@toast";
-import { alertFeedBack } from "@constants";
+import { alertFeedBack, dashBoardForm } from "@constants";
 import styles from "./dashboard.module.css";
+import { Form } from "@components/molecules";
+
+interface ICashInOut {
+  amount: number;
+  type: string;
+}
 
 export default function DashBoard() {
   const { accountId } = useAppSelector(selectUser);
@@ -40,67 +45,23 @@ export default function DashBoard() {
     fetchBalance(accountId);
   }, [accountId, fetchBalance, mutation.data?.message]);
 
-  interface ICashIn {
-    cash_in: number;
-  }
-
-  interface ICashOut {
-    cash_out: number;
-  }
-
   const {
-    handleSubmit: handleSubmitCashIn,
-    register: cashInRegister,
-    reset: resetCashIn,
-    formState: { errors: cashInError },
-  } = useForm<ICashIn>({
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm<ICashInOut>({
     mode: "onSubmit",
-    resolver: yupResolver(cashInSchema),
+    resolver: yupResolver(cashInOutSchema),
   });
 
-  const onSubmitCashIn: SubmitHandler<ICashIn> = async (formData) => {
+  const onSubmit: SubmitHandler<ICashInOut> = async (formData) => {
     const transaction: ITransaction = {
       accountId,
-      amount: Object.values(formData)[0],
-      type: Object.keys(formData)[0],
+      amount: formData.amount,
+      type: formData.type,
     };
 
-    try {
-      const response = await mutation.mutateAsync(transaction);
-      if (response.errorNumber === 1) {
-        alert({
-          title: alertFeedBack.account_not_found.title,
-          icon: alertFeedBack.account_not_found.icon,
-        });
-        return;
-      }
-      alert({
-        title: alertFeedBack.transaction.title,
-        icon: alertFeedBack.transaction.icon,
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      resetCashIn();
-    }
-  };
-
-  const {
-    handleSubmit: handleSubmitCashOut,
-    register: cashOutRegister,
-    reset: resetCashOut,
-    formState: { errors: cashOutError },
-  } = useForm<ICashOut>({
-    mode: "onSubmit",
-    resolver: yupResolver(cashOutSchema),
-  });
-
-  const onSubmitCashOut: SubmitHandler<ICashOut> = async (formData) => {
-    const transaction = {
-      accountId,
-      amount: Object.values(formData)[0],
-      type: Object.keys(formData)[0],
-    };
     try {
       const response = await mutation.mutateAsync(transaction);
       if (response.errorNumber === 1) {
@@ -131,7 +92,7 @@ export default function DashBoard() {
     } catch (error) {
       console.log(error);
     } finally {
-      resetCashOut();
+      reset();
     }
   };
 
@@ -152,46 +113,14 @@ export default function DashBoard() {
         )}
       </div>
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmitCashIn(onSubmitCashIn)}
-      >
-        <TextField
-          type="number"
-          name="cash_in"
-          placeholder="Ingresá el monto que querés depositar"
-          label="Ingresar dinero"
-          register={cashInRegister}
-          required
-          error={cashInError.cash_in?.message}
-        />
-
-        <div className={styles.button_container}>
-          <Button type="submit">
-            <p className={styles.button_text}>Depositar</p>
-          </Button>
-        </div>
-      </form>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmitCashOut(onSubmitCashOut)}
-      >
-        <TextField
-          type="number"
-          name="cash_out"
-          placeholder="Ingresá el monto que querés extraer"
-          label="Extraer dinero"
-          register={cashOutRegister}
-          required
-          error={cashOutError.cash_out?.message}
-        />
-
-        <div className={styles.button_container}>
-          <Button type="submit">
-            <p className={styles.button_text}>Extraer</p>
-          </Button>
-        </div>
-      </form>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        formOptions={dashBoardForm}
+        register={register}
+        required
+        buttonText="Aceptar"
+        error={errors}
+      />
     </section>
   );
 }

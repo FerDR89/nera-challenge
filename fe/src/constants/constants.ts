@@ -69,3 +69,20 @@ export const homeForm: TFromProps[] = [
     placeholder: "Ingresá tu saldo inicial",
   },
 ];
+export const dashBoardForm: TFromProps[] = [
+  {
+    label: "Importe",
+    type: "input",
+    inputType: "number",
+    name: "amount",
+    placeholder: "Ingresá tu importe",
+  },
+  {
+    type: "select",
+    name: "type",
+    selectOptions: [
+      { value: "cash_in", text: "Ingresar dinero" },
+      { value: "cash_out", text: "Extraer dinero" },
+    ],
+  },
+];
