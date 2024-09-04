@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Button, TextField } from "@components/atoms";
+import { Button, TextField, SelectField } from "@components/atoms";
+import { TSelectOptions } from "@components/atoms/selectField/SelectField";
 import styles from "./form.module.css";
 
 interface IForm {
@@ -25,7 +26,7 @@ export type TFormConditional =
     }
   | {
       type: "select";
-      selectOptions: [{ value: string; text: string }];
+      selectOptions: TSelectOptions[];
     };
 
 export type TFromProps = TFormCommonOptions & TFormConditional;
@@ -47,6 +48,18 @@ const Form = ({
               name={e.name}
               placeholder={e.placeholder}
               label={e.label}
+              register={register}
+              required
+              error={errorMessage[e.name]?.message?.toString()}
+              key={e.name}
+            />
+          );
+        }
+        if (e.type === "select") {
+          return (
+            <SelectField
+              name={e.name}
+              selectOptions={e.selectOptions}
               register={register}
               required
               error={errorMessage[e.name]?.message?.toString()}
